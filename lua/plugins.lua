@@ -1,74 +1,102 @@
--- Only required if you have packer configured as `opt`
-vim.cmd [[packadd packer.nvim]]
-return require('packer').startup(function()
-  use {
-    -- Packer can manage itself
-	{'wbthomason/packer.nvim', opt = true},
+-- https://github.com/folke/lazy.nvim
 
-    -- colorscheme
-    -- {'arcticicestudio/nord-vim', opt = true},
-	{'shaunsingh/nord.nvim'},
-	{'w0ng/vim-hybrid', opt = true},
-	'kristijanhusak/vim-hybrid-material',
-	'rmehri01/onenord.nvim',
-	'EdenEast/nightfox.nvim',
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+  vim.fn.system({
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "https://github.com/folke/lazy.nvim.git",
+    "--branch=stable", -- latest stable release
+    lazypath,
+  })
+end
+vim.opt.rtp:prepend(lazypath)
 
-    -- add this line to your .vimrc file
-    -- https://raw.githubusercontent.com/mattn/emmet-vim/master/TUTORIAL
-	{'mattn/emmet-vim', opt = true},
-
-    -- status line and themes
-    -- https://github.com/vim-airline/vim-airline
-	'vim-airline/vim-airline',
-	'vim-airline/vim-airline-themes',
-
-
-    -- fuzzy finder
-	'nvim-lua/popup.nvim',
-	'nvim-lua/plenary.nvim',
-    {'nvim-telescope/telescope.nvim', tag = 'nvim-0.6'},
-
-	-- flutter-tools (contains LSP features)
-	{
-        'akinsho/flutter-tools.nvim',
-        requires = {
-            'nvim-lua/plenary.nvim',
-            'stevearc/dressing.nvim', -- optional for vim.ui.select
-        },
+local dependencies = {
+  {
+    "neovim/nvim-lspconfig",
+    tag = "v0.1.7",
+  },
+  {
+    "nvim-tree/nvim-tree.lua",
+    commit = "141c0f97c35f274031294267808ada59bb5fb08e",
+  },
+  { "rmehri01/onenord.nvim" },
+  {
+    "akinsho/bufferline.nvim",
+    version = "*",
+    dependencies = "nvim-tree/nvim-web-devicons",
+  },
+  {
+    "nvim-telescope/telescope.nvim",
+    tag = "0.1.5",
+    dependencies = { "nvim-lua/plenary.nvim" },
+  },
+  {
+    "nvimdev/lspsaga.nvim",
+    dependencies = {
+        "nvim-treesitter/nvim-treesitter",
+        "nvim-tree/nvim-web-devicons",
     },
+  },
+  {
+    "hrsh7th/nvim-cmp",
+    commit = "538e37ba87284942c1d76ed38dd497e54e65b891",
+    dependencies = {
+      'neovim/nvim-lspconfig',
+      'hrsh7th/cmp-nvim-lsp',
+      'hrsh7th/cmp-buffer',
+      'hrsh7th/cmp-path',
+      'hrsh7th/cmp-vsnip',
+      'hrsh7th/vim-vsnip',
+    },
+  },
+}
 
-    -- LSP
-    -- using neovim built-in client
-	'neovim/nvim-lspconfig',
+local setup = function()
+  require("lazy").setup(dependencies)
 
-    -- floating window navigation
-	{'tami5/lspsaga.nvim'},
+  require("nvim-tree").setup({
+    sort = {
+      sorter = "case_sensitive",
+    },
+    view = {
+      width = 30,
+    },
+    renderer = {
+      group_empty = true,
+    },
+    filters = {
+      dotfiles = true,
+    },
+    on_attach = require("keymaps").nvim_tree_setup,
+  })
+  require("lspsaga").setup({})
+  require("bufferline").setup{}
+  require("plugins.cmp").setup()
 
-    -- file tree viewer
-	'lambdalisue/fern.vim',
-    -- fern font
-	'lambdalisue/nerdfont.vim',
-	'lambdalisue/fern-renderer-nerdfont.vim',
+  -- LSP configs
+  local lspconfig = require("lspconfig")
+  local capabilities = require("plugins.cmp").capabilities
 
-    -- completion
-	'hrsh7th/nvim-cmp',
-	'hrsh7th/cmp-nvim-lsp',
-	'hrsh7th/cmp-path',
-	'hrsh7th/cmp-vsnip',
-	'hrsh7th/vim-vsnip',
-
-	-- function signature help
-	'ray-x/lsp_signature.nvim',
-
-	-- dart-vim-plugin
-    -- 'dart-lang/dart-vim-plugin',
-
-	-- vim-markdown
-	'godlygeek/tabular',
-	'preservim/vim-markdown',
-
-	-- preview markdown
-	'previm/previm',
+  lspconfig.gopls.setup({
+    capabilities = capabilities,
+    settings = {
+      gopls = {
+        analyses = {
+          unusedparams = true,
+        },
+        staticcheck = true,
+        gofumpt = true,
+      },
+    },
+  })
+  lspconfig.pyright.setup{
+    capabilities = capabilities,
   }
-end)
+end
 
+return {
+    setup = setup,
+}
