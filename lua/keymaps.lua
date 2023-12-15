@@ -34,8 +34,8 @@ local setup = function(bufnr)
   keymap.set('n', '<leader>fh', telescope.help_tags, {})
 
   -- diagnostic
-  keymap.set('n', '[d', vim.diagnostic.goto_prev)
-  keymap.set('n', ']d', vim.diagnostic.goto_next)
+  -- keymap.set('n', '[d', vim.diagnostic.goto_prev)
+  -- keymap.set('n', ']d', vim.diagnostic.goto_next)
   keymap.set('n', '<space>q', vim.diagnostic.setloclist)
 end
 
@@ -43,17 +43,21 @@ local lsp_setup = function(ev)
   -- Buffer local mappings.
   -- See `:help vim.lsp.*` for documentation on any of the below functions
   local opts = { buffer = ev.buf }
+  keymap.set('n', '[d', "<cmd>Lspsaga diagnostic_jump_prev<CR>", opts)
+  keymap.set('n', ']d', "<cmd>Lspsaga diagnostic_jump_next<CR>", opts)
   keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
   keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
   keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
   keymap.set('n', 'gr', vim.lsp.buf.references, opts)
   keymap.set('n', 'gf', "<cmd>Lspsaga finder<CR>", opts)
-  keymap.set('n', 'K', vim.lsp.buf.hover, opts)
-  -- keymap.set('n', 'K', "<cmd>Lspsaga hover_doc<CR>", opts)
+  -- keymap.set('n', 'K', vim.lsp.buf.hover, opts)
+  keymap.set('n', 'K', "<cmd>Lspsaga hover_doc<CR>", opts)
   keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
-  keymap.set('n', '<C-r>', vim.lsp.buf.rename, opts)
+  -- keymap.set('n', '<C-r>', vim.lsp.buf.rename, opts)
+  keymap.set('n', '<C-r>', "<cmd>Lspsaga rename<CR>", opts)
   keymap.set('n', 'mD', vim.lsp.buf.type_definition, opts)
   keymap.set({ 'n', 'v' }, '<space>n', vim.lsp.buf.code_action, opts)
+  keymap.set('n', '<C-o>', "<cmd>Lspsaga outline<CR>", opts)
 end
 
 local nvim_tree_setup = function(bufnr)

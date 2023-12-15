@@ -26,6 +26,7 @@ local options = {
     tabstop = 4,
     --undofile = true,
     --undodir = "$HOME/.nvim/undo",
+    swapfile = false,
 
     -- https://github.com/nvim-tree/nvim-tree.lua?tab=readme-ov-file#setup
     termguicolors = true,
