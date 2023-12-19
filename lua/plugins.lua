@@ -21,12 +21,30 @@ local dependencies = {
   {
     "nvim-tree/nvim-tree.lua",
     commit = "141c0f97c35f274031294267808ada59bb5fb08e",
+    opts = function(_, _)
+      return {
+        sort = {
+          sorter = "case_sensitive",
+        },
+        view = {
+          width = 30,
+        },
+        renderer = {
+          group_empty = true,
+        },
+        filters = {
+          dotfiles = true,
+        },
+        on_attach = require("keymaps").nvim_tree_setup,
+      }
+    end,
   },
   { "rmehri01/onenord.nvim" },
   {
     "akinsho/bufferline.nvim",
     version = "*",
     dependencies = "nvim-tree/nvim-web-devicons",
+    opts = {},
   },
   {
     "nvim-telescope/telescope.nvim",
@@ -39,6 +57,7 @@ local dependencies = {
         "nvim-treesitter/nvim-treesitter",
         "nvim-tree/nvim-web-devicons",
     },
+    opts = {},
   },
   {
     "hrsh7th/nvim-cmp",
@@ -51,6 +70,9 @@ local dependencies = {
       'hrsh7th/cmp-vsnip',
       'hrsh7th/vim-vsnip',
     },
+    opts = function(_, _)
+      return require("plugins.cmp").opts
+    end,
   },
   {
 	  "lukas-reineke/indent-blankline.nvim",
@@ -66,25 +88,6 @@ local dependencies = {
 
 local setup = function()
   require("lazy").setup(dependencies)
-
-  require("nvim-tree").setup({
-    sort = {
-      sorter = "case_sensitive",
-    },
-    view = {
-      width = 30,
-    },
-    renderer = {
-      group_empty = true,
-    },
-    filters = {
-      dotfiles = true,
-    },
-    on_attach = require("keymaps").nvim_tree_setup,
-  })
-  require("lspsaga").setup({})
-  require("bufferline").setup{}
-  require("plugins.cmp").setup()
 
   -- LSP configs
   local lspconfig = require("lspconfig")
@@ -105,6 +108,7 @@ local setup = function()
   lspconfig.pyright.setup{
     capabilities = capabilities,
   }
+  lspconfig.lua_ls.setup{}
 end
 
 return {
