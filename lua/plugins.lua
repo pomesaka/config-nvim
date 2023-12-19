@@ -100,6 +100,7 @@ local setup = function()
         analyses = {
           unusedparams = true,
         },
+        usePlaceholders = true,
         staticcheck = true,
         gofumpt = true,
       },
