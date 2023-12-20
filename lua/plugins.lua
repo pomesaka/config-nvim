@@ -57,7 +57,13 @@ local dependencies = {
         "nvim-treesitter/nvim-treesitter",
         "nvim-tree/nvim-web-devicons",
     },
-    opts = {},
+    opts = {
+      lightbulb = {
+        sign = false,
+        virtual_text = true,
+        enable_in_insert = true,
+      },
+    },
   },
   {
     "hrsh7th/nvim-cmp",
