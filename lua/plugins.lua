@@ -58,6 +58,10 @@ local dependencies = {
         "nvim-tree/nvim-web-devicons",
     },
     opts = {
+      outline = {
+        win_width = 50,
+        close_after_jump = true,
+      },
       lightbulb = {
         sign = false,
         virtual_text = true,
