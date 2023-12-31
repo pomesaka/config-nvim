@@ -4,5 +4,3 @@ require("plugins").setup()
 require("keymaps").setup()
 require("autocmds").setup()
 
--- ===== theme =====
-vim.cmd "colorscheme onenord"
