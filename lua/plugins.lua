@@ -13,19 +13,10 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-local setup = function()
-  require("lazy").setup({
-    { "rmehri01/onenord.nvim" },
-    require("plugins.bufferline"),
-    require("plugins.indent-blankline"),
-    require("plugins.lspconfig"),
-    require("plugins.nvim-tree"),
-    require("plugins.telescope"),
-    require("plugins.lspsaga"),
-    require("plugins.cmp"),
-  })
+local M =  {}
+
+function M.setup()
+  require("lazy").setup({{import = "plugin"}})
 end
 
-return {
-    setup = setup,
-}
+return M
