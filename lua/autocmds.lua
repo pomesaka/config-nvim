@@ -30,15 +30,6 @@ local setup = function()
       vim.lsp.buf.format({async = false})
     end
   })
-
-  -- LSP
-  autocmd('LspAttach', {
-    group = augroup('UserLspConfig', {}),
-    callback = function(ev)
-      vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
-      require("keymaps").lsp_setup(ev)
-    end,
-  })
 end
 
 return {
