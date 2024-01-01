@@ -5,9 +5,11 @@ return {
   dependencies = {
     'neovim/nvim-lspconfig',
     'hrsh7th/cmp-nvim-lsp',
+    'hrsh7th/cmp-nvim-lsp-signature-help',
     'hrsh7th/cmp-buffer',
     'hrsh7th/cmp-path',
     'hrsh7th/cmp-vsnip',
+    'windwp/nvim-autopairs',
     {
       'hrsh7th/vim-vsnip',
       keys = {
@@ -32,6 +34,11 @@ return {
   opts = function()
     local cmp = require("cmp")
     local lspkind = require("lspkind")
+    local cmp_autopairs = require('nvim-autopairs.completion.cmp')
+    cmp.event:on(
+      'confirm_done',
+      cmp_autopairs.on_confirm_done()
+    )
     return {
       snippet = {
         expand = function(args)
@@ -54,6 +61,7 @@ return {
       }),
       sources = cmp.config.sources({
         { name = 'nvim_lsp' },
+        { name = 'nvim_lsp_signature_help' },
         { name = 'vsnip' }, -- For vsnip users.
       }, {
         { name = 'buffer' },

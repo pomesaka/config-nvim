@@ -1,8 +1,10 @@
 return {
   "nvimdev/lspsaga.nvim",
+  event = "LspAttach",
   dependencies = {
-      "nvim-treesitter/nvim-treesitter",
-      "nvim-tree/nvim-web-devicons",
+    "nvim-treesitter/nvim-treesitter",
+    "nvim-tree/nvim-web-devicons",
+    "neovim/nvim-lspconfig",
   },
   opts = {
     outline = {
@@ -13,6 +15,9 @@ return {
       sign = false,
       virtual_text = true,
       enable_in_insert = true,
+    },
+    diagnostic = {
+      diagnostic_only_current = true,
     },
   },
   keys = {

@@ -16,6 +16,11 @@ return {
             color = "#bc791a",
             highlight = "Search",
         },
+        Error = {
+            text = { "x", "=" },
+            priority = 2,
+            highlight = "DiagnosticVirtualTextError",
+        },
         GitAdd = {
             text = "+",
             priority = 7,
@@ -39,18 +44,8 @@ return {
     dependencies = {
       {
         "lewis6991/gitsigns.nvim",
-        opts = {
-          signcolumn = true,
-          signs = {
-            add          = { text = '+' },
-            change       = { text = '*' },
-            delete       = { text = '_' },
-            changedelete = { text = '~' },
-            untracked    = { text = 'N' },
-          },
-        },
         config = function(_, opts)
-          require('gitsigns').setup(opts)
+          require("gitsigns").setup(opts)
           require("scrollbar.handlers.gitsigns").setup()
         end
       },

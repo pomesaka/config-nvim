@@ -8,6 +8,12 @@ return {
     {'<C-k>', vim.lsp.buf.signature_helps},
     {'mD', vim.lsp.buf.type_definition},
   },
+  dependencies = {
+    {
+      "j-hui/fidget.nvim",
+      opts = {},
+    },
+  },
   opts = {
     servers = {
       gopls = {
@@ -28,6 +34,9 @@ return {
     setup = {},
   },
   config = function(_, opts)
+    vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+      vim.lsp.diagnostic.on_publish_diagnostics, { virtual_text = false }
+    )
     local servers = opts.servers
     local has_cmp, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
     local capabilities = vim.tbl_deep_extend(
