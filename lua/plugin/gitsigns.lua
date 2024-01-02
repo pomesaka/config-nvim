@@ -1,5 +1,6 @@
 return {
   "lewis6991/gitsigns.nvim",
+  commit = "d195f0c",
   opts = {
     signcolumn = true,
     signs = {

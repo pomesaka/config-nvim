@@ -1,5 +1,6 @@
 return {
   'kevinhwang91/nvim-hlslens',
+  commit = "8ffc64b",
   dependencies = {
     'petertriho/nvim-scrollbar',
     opts = {
@@ -44,6 +45,7 @@ return {
     dependencies = {
       {
         "lewis6991/gitsigns.nvim",
+        commit = "d195f0c",
         config = function(_, opts)
           require("gitsigns").setup(opts)
           require("scrollbar.handlers.gitsigns").setup()

@@ -1,5 +1,6 @@
 return {
   'sindrets/diffview.nvim',
+  commit = "3dc498c",
   opts = function ()
     local actions = require("diffview.actions")
     return {
