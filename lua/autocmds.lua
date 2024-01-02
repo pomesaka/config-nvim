@@ -3,12 +3,12 @@ local autocmd = vim.api.nvim_create_autocmd
 
 local setup = function()
   autocmd("BufWritePre", {
-  	pattern = "*",
-  	command = ":%s/\\s\\+$//e",
+    pattern = "*",
+    command = ":%s/\\s\\+$//e",
   })
 
   autocmd("FileType", {
-    pattern = {"lua", "ts", "dart", "yaml"},
+    pattern = { "lua", "ts", "dart", "yaml" },
     command = "setlocal shiftwidth=2 tabstop=2",
   })
 
@@ -17,7 +17,7 @@ local setup = function()
     pattern = "*.go",
     callback = function()
       local params = vim.lsp.util.make_range_params()
-      params.context = {only = {"source.organizeImports"}}
+      params.context = { only = { "source.organizeImports" } }
       local result = vim.lsp.buf_request_sync(0, "textDocument/codeAction", params)
       for cid, res in pairs(result or {}) do
         for _, r in pairs(res.result or {}) do
@@ -27,7 +27,6 @@ local setup = function()
           end
         end
       end
-      vim.lsp.buf.format({async = false})
     end
   })
 end

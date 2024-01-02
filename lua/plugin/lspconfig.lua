@@ -2,11 +2,11 @@ return {
   "neovim/nvim-lspconfig",
   tag = "v0.1.7",
   keys = {
-    {'gD', vim.lsp.buf.declaration},
-    {'gd', vim.lsp.buf.definition},
-    {'gi', vim.lsp.buf.implementation},
-    {'<C-k>', vim.lsp.buf.signature_helps},
-    {'mD', vim.lsp.buf.type_definition},
+    { 'gD',    vim.lsp.buf.declaration },
+    { 'gd',    vim.lsp.buf.definition },
+    { 'gi',    vim.lsp.buf.implementation },
+    { '<C-k>', vim.lsp.buf.signature_helps },
+    { 'mD',    vim.lsp.buf.type_definition },
   },
   dependencies = {
     {
@@ -55,5 +55,11 @@ return {
 
       lspconfig[server].setup(server_opts)
     end
+    vim.api.nvim_create_autocmd(
+      "BufWritePre", {
+        callback = function()
+          vim.lsp.buf.format({ async = false })
+        end
+      })
   end,
 }
