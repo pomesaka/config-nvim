@@ -30,6 +30,8 @@ return {
       },
       pyright = {},
       lua_ls = {},
+      --      dartls = {},
+      rust_analyzer = {},
     },
     setup = {},
   },
