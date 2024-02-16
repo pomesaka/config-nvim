@@ -11,5 +11,6 @@ return {
     { '<leader>fd', '<CMD>lua require("telescope.builtin").diagnostics()<CR>' },
     { '<leader>fp', '<CMD>lua require("telescope.builtin").commands()<CR>' },
     { '<leader>fo', '<CMD>lua require("telescope.builtin").oldfiles({only_cwd=true})<CR>' },
+    { '<leader>f/', '<CMD>lua require("telescope.builtin").current_buffer_fuzzy_find()<CR>' },
   },
 }
