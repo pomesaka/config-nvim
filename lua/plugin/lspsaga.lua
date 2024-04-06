@@ -14,7 +14,7 @@ return {
     },
     lightbulb = {
       enable = true,
-      sign = true,
+      sign = false,
       debounce = 40,
       virtual_text = true,
       enable_in_insert = true,
