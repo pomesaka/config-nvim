@@ -32,6 +32,8 @@ return {
       lua_ls = {},
       --      dartls = {},
       rust_analyzer = {},
+      tsserver = {},
+      biome = {},
     },
     setup = {},
   },
@@ -60,7 +62,13 @@ return {
     vim.api.nvim_create_autocmd(
       "BufWritePre", {
         callback = function()
-          vim.lsp.buf.format({ async = false })
+          vim.lsp.buf.format({
+            async = false,
+            -- disable tsserver formatter, use biome
+            filter = function(client)
+              return client.name ~= "tsserver"
+            end
+          })
         end
       })
   end,
