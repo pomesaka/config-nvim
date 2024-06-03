@@ -8,7 +8,7 @@ local setup = function()
   })
 
   autocmd("FileType", {
-    pattern = { "lua", "dart", "yaml", "ts", "tsx", "typescriptreact" },
+    pattern = { "lua", "dart", "yaml", "ts", "tsx", "typescriptreact", "terraform" },
     command = "setlocal shiftwidth=2 tabstop=2",
   })
 

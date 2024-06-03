@@ -34,6 +34,7 @@ return {
       rust_analyzer = {},
       tsserver = {},
       biome = {},
+      terraformls = {},
     },
     setup = {},
   },
