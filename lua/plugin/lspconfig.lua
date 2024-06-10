@@ -1,6 +1,46 @@
+local function file_exists(path)
+  local file = io.open(path, "r")
+  if file then
+    file:close()
+    return true
+  else
+    return false
+  end
+end
+
+-- get project root directory (find .git directory)
+local function project_root_dir(dir)
+  local git_dir = dir .. '/.git'
+  if file_exists(git_dir) then
+    -- print("found project_root: ", dir)
+    return dir
+  else
+    local parent_dir = vim.fn.fnamemodify(dir, ":h")
+    if parent_dir == dir then
+      return nil -- no root dir
+    else
+      return project_root_dir(parent_dir)
+    end
+  end
+end
+
+local project_root = project_root_dir(vim.loop.cwd())
+
+-- sqls settings
+local function sqlc_config()
+  if project_root then
+    local config_file = project_root .. '/.sqls.yaml'
+    if file_exists(config_file) then
+      -- print("use sqls config: ", config_file)
+      return { '-config', config_file }
+    end
+  end
+  return nil
+end
+
 return {
   "neovim/nvim-lspconfig",
-  tag = "v0.1.7",
+  tag = "v0.1.8",
   keys = {
     { 'gD',    vim.lsp.buf.declaration },
     { 'gd',    vim.lsp.buf.definition },
@@ -37,6 +77,17 @@ return {
       biome = {},
       -- https://releases.hashicorp.com/terraform-ls/0.33.2/terraform-ls_0.33.2_darwin_arm64.zip
       terraformls = {},
+      -- https://github.com/sqls-server/sqls-server
+      sqls = {
+        cmd = vim.list_extend({ "sqls" }, sqlc_config() or {} ),
+        on_attach = function(client, bufnr)
+          require('sqls').on_attach(client, bufnr)
+          -- there is crazy formatting bug
+          --
+          client.server_capabilities.documentFormattingProvider = false
+          client.server_capabilities.documentRangeFormattingProvider = false
+        end,
+      },
     },
     setup = {},
   },
