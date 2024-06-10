@@ -31,9 +31,11 @@ return {
       pyright = {},
       lua_ls = {},
       --      dartls = {},
+      -- https://github.com/rust-lang/rust-analyzer/releases
       rust_analyzer = {},
       tsserver = {},
       biome = {},
+      -- https://releases.hashicorp.com/terraform-ls/0.33.2/terraform-ls_0.33.2_darwin_arm64.zip
       terraformls = {},
     },
     setup = {},
