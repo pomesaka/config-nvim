@@ -75,11 +75,13 @@ return {
       rust_analyzer = {},
       tsserver = {},
       biome = {},
+      -- https://github.com/tailwindlabs/tailwindcss-intellisense
+      tailwindcss = {},
       -- https://releases.hashicorp.com/terraform-ls/0.33.2/terraform-ls_0.33.2_darwin_arm64.zip
       terraformls = {},
       -- https://github.com/sqls-server/sqls-server
       sqls = {
-        cmd = vim.list_extend({ "sqls" }, sqlc_config() or {} ),
+        cmd = vim.list_extend({ "sqls" }, sqlc_config() or {}),
         on_attach = function(client, bufnr)
           require('sqls').on_attach(client, bufnr)
           -- there is crazy formatting bug
@@ -101,6 +103,13 @@ return {
       "force",
       {},
       vim.lsp.protocol.make_client_capabilities(),
+      {
+        textDocument = {
+          formatting = { dynamicRegistration = true },
+          rangeFormatting = { dynamicRegistration = true },
+          onTypeFormatting = { dynamicRegistration = true },
+        },
+      },
       has_cmp and cmp_nvim_lsp.default_capabilities() or {},
       opts.capabilities or {}
     )

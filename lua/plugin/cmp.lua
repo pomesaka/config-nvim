@@ -1,4 +1,3 @@
-
 return {
   "hrsh7th/nvim-cmp",
   commit = "538e37ba87284942c1d76ed38dd497e54e65b891",
@@ -18,16 +17,29 @@ return {
           function()
             return vim.fn['vsnip#jumpable'](1) == 1 and '<Plug>(vsnip-jump-next)' or '<Tab>'
           end,
-          mode = {'i', 's'}, expr = true, noremap = false
+          mode = { 'i', 's' },
+          expr = true,
+          noremap = false
         },
         {
           '<S-Tab>',
           function()
             return vim.fn['vsnip#jumpable'](-1) == 1 and '<Plug>(vsnip-jump-prev)' or '<S-Tab>'
           end,
-          mode = {'i', 's'}, expr = true, noremap = false
+          mode = { 'i', 's' },
+          expr = true,
+          noremap = false
         },
       },
+    },
+    {
+      "roobert/tailwindcss-colorizer-cmp.nvim",
+      -- optionally, override the default options:
+      config = function()
+        require("tailwindcss-colorizer-cmp").setup({
+          color_square_width = 2,
+        })
+      end
     },
     'onsails/lspkind.nvim',
   },
@@ -67,13 +79,17 @@ return {
         { name = 'buffer' },
         { name = 'path' },
       }),
-	    formatting = {
-	    	format = lspkind.cmp_format({
-	    		mode = "symbol",
-	    		maxwidth = 50,
-	    		ellipsis_char = "...",
-	    	}),
-	    },
+      formatting = {
+        format = lspkind.cmp_format({
+          mode = "symbol_text",
+          maxwidth = 50,
+          ellipsis_char = "...",
+          before = function(entry, vim_item)
+            vim_item = require('tailwindcss-colorizer-cmp').formatter(entry, vim_item)
+            return vim_item
+          end
+        }),
+      },
     }
   end,
 }
