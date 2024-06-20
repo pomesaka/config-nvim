@@ -1,6 +1,9 @@
 return {
   "nvimdev/lspsaga.nvim",
-  commit = "4e2b91c",
+  -- broken with nvim v0.10.0: "e646183662b7e9b1f3b9d9616116a6a8167e57ff",
+  -- commit = "4e2b91c",
+  commit = "ad61778283f26a9fa2c5a8d2f0aca52ba49f32f3",
+  -- branch = "main",
   event = "LspAttach",
   dependencies = {
     "nvim-treesitter/nvim-treesitter",

@@ -8,7 +8,7 @@ return {
         args = {
           'check',
           '--write',
-          '--unsafe',
+          -- '--unsafe',
           '--stdin-file-path',
           '$FILENAME',
         },
