@@ -68,7 +68,38 @@ return {
           },
         },
       },
-      pyright = {},
+      pylsp = {
+        cmd = { "pylsp", "-vvv", "--log-file", "/Users/pomesaka/.local/state/nvim/pylsp.log" },
+        settings = {
+          pylsp = {
+            plugins = {
+              flake8 = {
+                enabled = false
+              },
+              pycodestyle = {
+                enabled = false
+              },
+              pyflakes = {
+                enabled = false
+              },
+              pydocstyle = {
+                enabled = false
+              },
+              ruff = {
+                enabled = true,
+                formatEnabled = true,   -- Enable formatting using ruffs formatter
+                extendSelect = { "I" }, -- Rules that are additionally used by ruff
+                select = { "F" },       -- Rules to be enabled by ruff
+                lineLength = 30,        -- Line length to pass to ruff checking and formatting
+                unsafeFixes = true,     -- Whether or not to offer unsafe fixes as code actions. Ignored with the "Fix All" action
+              },
+            }
+          }
+        }
+      },
+      -- pyright = {},
+      -- https://github.com/mtshiba/pylyzer
+      -- pylyzer = {},
       lua_ls = {},
       --      dartls = {},
       -- https://github.com/rust-lang/rust-analyzer/releases
@@ -90,6 +121,8 @@ return {
           client.server_capabilities.documentRangeFormattingProvider = false
         end,
       },
+      -- https://github.com/artempyanykh/marksman/releases
+      marksman = {}
     },
     setup = {},
   },
