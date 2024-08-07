@@ -7,7 +7,7 @@ return {
         sorter = "case_sensitive",
       },
       view = {
-        width = 30,
+        width = 50,
       },
       renderer = {
         group_empty = true,
@@ -26,11 +26,11 @@ return {
         -- custom mappings
         -- NOTE: could note override default mapping unless remove the mapping
         vim.keymap.set('n', '<C-e>', nvim_tree_api.tree.toggle, opts)
-        vim.keymap.set('n', '?',     nvim_tree_api.tree.toggle_help, opts)
+        vim.keymap.set('n', '?', nvim_tree_api.tree.toggle_help, opts)
       end
     }
   end,
   keys = {
-    {"<C-e>", "<cmd>NvimTreeToggle<CR>"},
+    { "<C-e>", "<cmd>NvimTreeToggle<CR>" },
   },
 }
