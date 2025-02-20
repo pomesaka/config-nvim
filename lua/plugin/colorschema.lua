@@ -13,6 +13,7 @@ local nightfox = {
   lazy = false,
   config = function()
     vim.cmd [[colorscheme nightfox]]
+    -- vim.cmd [[colorscheme dayfox]]
     -- vim.cmd [[colorscheme nordfox]]
     -- vim.cmd [[colorscheme terafox]]
     -- vim.cmd [[colorscheme carbonfox]]
@@ -54,4 +55,4 @@ local nord = {
   end,
 }
 
-return nord
+return nightfox
